@@ -1,0 +1,6 @@
+# document
+.DS_Store
+
+# folder
+dist
+node_modules

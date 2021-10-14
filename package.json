@@ -1,0 +1,25 @@
+{
+  "name": "number-calling-system",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@e.coding.net:fe-dottmed/number-calling-system/number-calling-system.git"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": "Azalea Co., Ltd.",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "^3.2.20"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.2.0",
+    "less": "^4.1.2",
+    "typescript": "^4.4.4",
+    "vite": "^2.6.7"
+  }
+}
