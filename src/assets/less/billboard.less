@@ -1,0 +1,104 @@
+.billboard {
+  background-color: @primary;
+  border-radius: 1rem;
+  color: fade(@white, 70%);
+  font-size: 3.75rem;
+
+  > * {
+    overflow: hidden;
+  }
+
+  .matching {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: 2.5rem;
+
+    .title {
+      color: @green;
+    }
+  }
+
+  .surgical {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .title {
+      color: @yellow;
+    }
+
+    .wrapper {
+      flex: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+    }
+
+    .content {
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .general {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: 2rem;
+
+    .title {
+      color: @yellow;
+    }
+
+    .wrapper {
+      flex: auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+    }
+
+    .content {
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .content {
+    border-left: 0.25rem solid fade(@white, 20);
+
+    > p {
+      padding: 1.875rem 6.25rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      &:not(:last-child) {
+        border-bottom: 0.25rem solid fade(@white, 20);
+      }
+
+      span {
+        font-weight: 500;
+        margin: 0 1em;
+      }
+    }
+  }
+
+  .title {
+    margin: 1.875rem 5rem;
+    flex-shrink: 0;
+  }
+}
+
+.miss {
+  color: @red;
+  font-size: 3rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

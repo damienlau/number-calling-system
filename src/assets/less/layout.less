@@ -1,0 +1,25 @@
+.container {
+  background-color: @secondary;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+
+  > * {
+    padding: 0 3rem;
+  }
+
+  header {
+    height: 7.875rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    background-image: url("../img/bg_header.png");
+    background-size: contain;
+  }
+
+  main {
+    flex: auto;
+    margin-top: 2.5rem;
+  }
+}
