@@ -49,7 +49,7 @@ export default defineComponent({
 
     onMounted(() => {
       handleRequest();
-      setInterval(() => handleRequest(), 1000 * 10);
+      setInterval(() => handleRequest(), 1000 * 5);
     });
 
     return () => (
