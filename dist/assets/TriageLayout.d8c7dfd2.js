@@ -1,0 +1,1 @@
+import{d as r,u as t,c as e,R as n}from"./vendor.2e360935.js";import{H as s}from"./index.e7c124af.js";var i=r({setup(){const a=t();return()=>{var o;return e("section",{class:"container"},[e(s,{title:(o=a.query)==null?void 0:o.room_name},null),e("main",null,[e(n,null,null)])])}}});export{i as default};
