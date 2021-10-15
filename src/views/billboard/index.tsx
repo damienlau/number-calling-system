@@ -1,5 +1,4 @@
 import { defineComponent } from "vue";
-import classes from "./style.module.less";
 
 export default defineComponent({
   setup(props) {
@@ -51,4 +50,3 @@ export default defineComponent({
     );
   },
 });
-890=/*---=
