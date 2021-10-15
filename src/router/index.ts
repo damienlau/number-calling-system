@@ -15,5 +15,17 @@ export default createRouter({
         },
       ],
     },
+    {
+      path: "/triage",
+      name: "Triage",
+      component: () => import("../layouts/TriageLayout"),
+      children: [
+        {
+          path: "",
+          name: "",
+          component: () => import("../views/billboard/triage"),
+        },
+      ],
+    },
   ],
 });

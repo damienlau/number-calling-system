@@ -1,12 +1,14 @@
 import { defineComponent } from "vue";
-import { RouterView } from "vue-router";
+import { RouterView, useRoute } from "vue-router";
 import Header from "../components/Header";
 
 export default defineComponent({
   setup() {
+    const route = useRoute();
+
     return () => (
       <section class="container">
-        <Header title="急 诊" />
+        <Header title={route.query?.room_name} />
         <main>
           <RouterView />
         </main>

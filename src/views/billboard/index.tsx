@@ -1,27 +1,70 @@
-import { defineComponent } from "vue";
+// 急诊
+
+import { defineComponent, onMounted, ref } from "vue";
+import {
+  findTriageQueue,
+  queueResponseProps,
+  responseProps,
+} from "../../api/queue";
 
 export default defineComponent({
   setup(props) {
+    const peoples = ref({
+      // 正在就诊
+      matching: [] as queueResponseProps[],
+      // 急诊外科
+      surgical: [] as queueResponseProps[],
+      // 急诊内科
+      general: [] as queueResponseProps[],
+      // 过号
+      miss: [] as queueResponseProps[],
+    });
+
+    const handleRequest = () => {
+      findTriageQueue({ statetext: "呼叫" }).then(
+        (response: queueResponseProps[]) => {
+          peoples.value.matching = response;
+        }
+      );
+      findTriageQueue({ statetext: "等候", department: "急诊外科" }).then(
+        (response: queueResponseProps[]) => {
+          response.length = 4;
+          peoples.value.surgical = response;
+        }
+      );
+      findTriageQueue({ statetext: "等候", department: "急诊内科" }).then(
+        (response: queueResponseProps[]) => {
+          response.length = 4;
+          peoples.value.general = response;
+        }
+      );
+      findTriageQueue({ statetext: "过号" }).then(
+        (response: queueResponseProps[]) => {
+          peoples.value.miss = response;
+        }
+      );
+    };
+
+    onMounted(() => {
+      handleRequest();
+      setInterval(() => handleRequest(), 1000 * 10);
+    });
+
     return () => (
       <>
         <section class="billboard">
           <div class="matching">
             <div class="title">正在就诊</div>
             <div class="content">
-              <p>
-                请<span class="text-success">张三（1级）</span>到
-                <span class="text-white">急诊内科1室</span>
-                就诊
-              </p>
-              <p>
-                请<span class="text-success">李四（2级）</span>到
-                <span class="text-white">急诊外科</span>
-                就诊
-              </p>
-              <p>
-                请<span class="text-success">欧阳娜娜（3级）</span>到
-                <span class="text-white">急诊内科6室</span>就诊
-              </p>
+              {peoples.value.matching.map((item: queueResponseProps) => {
+                return (
+                  <p>
+                    请<span class="text-success">{item.name}</span>到
+                    <span class="text-white">{item.room_name}</span>
+                    就诊
+                  </p>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -29,23 +72,32 @@ export default defineComponent({
           <div class="surgical">
             <div class="title">外科等候</div>
             <div class="wrapper">
-              <p class="content">张三（1级）</p>
-              <p class="content">李四（2级）</p>
-              <p class="content">欧阳娜娜</p>
+              {peoples.value.surgical.map((item: queueResponseProps) => {
+                return <p class="content">{item.name}</p>;
+              })}
             </div>
           </div>
         </section>
         <section class="billboard">
           <div class="general">
-            <div class="title">外科等候</div>
+            <div class="title">内科等候</div>
             <div class="wrapper">
-              <p class="content">张三（1级）</p>
-              <p class="content">李四（2级）</p>
-              <p class="content">欧阳娜娜</p>
+              {peoples.value.general.map((item: queueResponseProps) => {
+                return <p class="content">{item.name}</p>;
+              })}
             </div>
           </div>
         </section>
-        <p class="miss">过号患者：张三（1级）、李四（2级）、欧阳娜娜</p>
+        <p class="miss">
+          过号患者：
+          {peoples.value.miss.map((item: queueResponseProps) => {
+            if (peoples.value.miss.length > 1) {
+              return item.name + "、";
+            } else {
+              return item.name;
+            }
+          })}
+        </p>
       </>
     );
   },

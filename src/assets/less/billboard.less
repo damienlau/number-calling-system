@@ -32,7 +32,7 @@
     .wrapper {
       flex: auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       align-items: center;
     }
 
@@ -41,6 +41,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 2.75rem;
     }
   }
 
@@ -57,7 +58,7 @@
     .wrapper {
       flex: auto;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       align-items: center;
     }
 
@@ -66,6 +67,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      font-size: 2.75rem;
     }
   }
 
@@ -83,7 +85,10 @@
       }
 
       span {
+        text-align: center;
+        display: inline-block;
         font-weight: 500;
+        min-width: 23rem;
         margin: 0 1em;
       }
     }
@@ -92,6 +97,104 @@
   .title {
     margin: 1.875rem 5rem;
     flex-shrink: 0;
+  }
+}
+
+.signboard {
+  &-wrapper {
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+
+    .miss {
+      margin: 2rem 0;
+    }
+  }
+
+  flex: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 3fr;
+  grid-gap: 2.5rem;
+
+  > * {
+    background-color: @primary;
+    border-radius: 1rem;
+    color: fade(@white, 70%);
+    font-size: 3.75rem;
+    padding: 0 5rem;
+    // display: flex;
+    // flex-flow: column nowrap;
+    // align-items: flex-start;
+    // justify-content: center;
+  }
+
+  .doctor {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    > span {
+      color: @white;
+      font-weight: 500;
+      margin-left: 2.5rem;
+    }
+  }
+
+  .match {
+    color: @green;
+    font-weight: 500;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .quiet {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+
+    &-tips {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      padding-bottom: 2.5rem;
+      border-bottom: 0.25rem solid fade(@white, 20);
+
+      img {
+        width: 11.375rem;
+        height: 11.375rem;
+        margin-right: 1.5rem;
+      }
+    }
+
+    &-alert {
+      color: @white;
+      font-weight: 500;
+      margin-top: 1.875rem;
+    }
+  }
+
+  .queue {
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+
+    p {
+      color: @yellow;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:not(:last-child) {
+        border-bottom: 0.25rem solid fade(@white, 20);
+      }
+
+      > span {
+        color: fade(@white, 70%);
+      }
+    }
   }
 }
 
