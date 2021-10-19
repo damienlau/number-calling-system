@@ -1,11 +1,8 @@
 // 急诊
 
 import { defineComponent, onMounted, ref } from "vue";
-import {
-  findTriageQueue,
-  queueResponseProps,
-  responseProps,
-} from "../../api/queue";
+import { findTriageQueue, queueResponseProps } from "../../api/queue";
+import Loudspeaker from "../../components/Loudspeaker";
 
 export default defineComponent({
   setup(props) {
@@ -52,6 +49,7 @@ export default defineComponent({
 
     return () => (
       <>
+        <Loudspeaker />
         <section class="billboard">
           <div class="matching">
             <div class="title">正在就诊</div>

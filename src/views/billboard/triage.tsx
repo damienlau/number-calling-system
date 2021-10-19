@@ -4,6 +4,7 @@ import { defineComponent, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import quietImg from "../../assets/img/icon_quiet@2x.png";
 import { findTriageQueue, queueResponseProps } from "../../api/queue";
+import Loudspeaker from "../../components/Loudspeaker";
 
 enum sort {
   "一",
@@ -53,47 +54,50 @@ export default defineComponent({
     });
 
     return () => (
-      <div class="signboard-wrapper">
-        <section class="signboard">
-          <div class="doctor">
-            医生<span>{peoples.value.matching.doctor}</span>
-          </div>
-          <div class="match">
-            正在就诊<span>{peoples.value.matching.name}</span>
-          </div>
-          <div class="quiet">
-            <div class="quiet-tips">
-              <img src={quietImg} />
-              请保持安静， <br />
-              谢谢您的合作！
+      <>
+        <Loudspeaker />
+        <div class="signboard-wrapper">
+          <section class="signboard">
+            <div class="doctor">
+              医生<span>{peoples.value.matching.doctor}</span>
             </div>
-            <p class="quiet-alert">请在门口耐心等待叫号</p>
-          </div>
-          <div class="queue">
-            {/* <p>
+            <div class="match">
+              正在就诊<span>{peoples.value.matching.name}</span>
+            </div>
+            <div class="quiet">
+              <div class="quiet-tips">
+                <img src={quietImg} />
+                请保持安静， <br />
+                谢谢您的合作！
+              </div>
+              <p class="quiet-alert">请在门口耐心等待叫号</p>
+            </div>
+            <div class="queue">
+              {/* <p>
               候诊一<span>{peoples.value.surgical[0].name}</span>
             </p> */}
-            {peoples.value.surgical.map((item, index) => {
-              return (
-                <p>
-                  候诊{sort[index]}
-                  <span>{item.name}</span>
-                </p>
-              );
+              {peoples.value.surgical.map((item, index) => {
+                return (
+                  <p>
+                    候诊{sort[index]}
+                    <span>{item.name}</span>
+                  </p>
+                );
+              })}
+            </div>
+          </section>
+          <p class="miss">
+            过号患者：
+            {peoples.value.miss.map((item: queueResponseProps) => {
+              if (peoples.value.miss.length > 1) {
+                return item.name + "、";
+              } else {
+                return item.name;
+              }
             })}
-          </div>
-        </section>
-        <p class="miss">
-          过号患者：
-          {peoples.value.miss.map((item: queueResponseProps) => {
-            if (peoples.value.miss.length > 1) {
-              return item.name + "、";
-            } else {
-              return item.name;
-            }
-          })}
-        </p>
-      </div>
+          </p>
+        </div>
+      </>
     );
   },
 });
