@@ -16,6 +16,9 @@ export default defineComponent({
     };
 
     const handleCanplay = (e) => {
+      // 浏览器已经关闭了多媒体控件自动播放，
+      // 如果运行报错 DOMException: play() failed because the user didn't interact with the document first.
+      // 手动点击页面后才能执行 play() 方法。
       e.target.play();
     };
 
