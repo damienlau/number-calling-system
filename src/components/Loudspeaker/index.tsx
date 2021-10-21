@@ -9,7 +9,7 @@ export default defineComponent({
     const roomName = ref("");
     const timeStamp = ref(0);
     const socket = new WebSocket(
-      `${import.meta.env.VITE_WEBSOCKET_URL}/ws/register/quene/`
+      `${import.meta.env.BASE_URL}/ws/register/quene/`
     );
 
     socket.onmessage = (e) => {
