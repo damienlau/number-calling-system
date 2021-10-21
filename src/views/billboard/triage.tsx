@@ -1,7 +1,7 @@
 // 急诊内科
 
 import { defineComponent, onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import quietImg from "../../assets/img/icon_quiet@2x.png";
 import { findTriageQueue, queueResponseProps } from "../../api/queue";
 import Loudspeaker from "../../components/Loudspeaker";
@@ -17,6 +17,7 @@ enum sort {
 export default defineComponent({
   setup(props) {
     const route = useRoute();
+    const router = useRouter();
     const peoples = ref({
       // 正在就诊
       matching: {} as queueResponseProps,
@@ -24,6 +25,11 @@ export default defineComponent({
       surgical: [] as queueResponseProps[],
       // 过号
       miss: [] as queueResponseProps[],
+    });
+    const visible = ref(false);
+    const formState = ref({
+      department: route.query?.department,
+      roomName: route.query?.room_name,
     });
 
     const handleRequest = () => {
@@ -48,13 +54,56 @@ export default defineComponent({
       });
     };
 
+    const handleOk = () => {
+      visible.value = false;
+      localStorage.setItem("department", formState.value.department);
+      localStorage.setItem("room_name", formState.value.roomName);
+      router.push({
+        name: "Triage",
+        query: {
+          department: formState.value.department,
+          room_name: formState.value.roomName,
+        },
+      });
+    };
+
     onMounted(() => {
+      let department = localStorage.getItem("department");
+      let roomName = localStorage.getItem("room_name");
+
+      if (department && roomName) {
+        router.push({
+          name: "Triage",
+          query: {
+            department,
+            room_name: roomName,
+          },
+        });
+      } else {
+        visible.value = true;
+      }
       handleRequest();
       setInterval(() => handleRequest(), 1000 * 5);
     });
 
     return () => (
       <>
+        <a-modal v-model={[visible.value, "visible"]} onOk={handleOk}>
+          <a-form model={formState.value}>
+            <a-form-item>
+              <a-input
+                v-model={[formState.value.department, "value"]}
+                placeholder="科室"
+              ></a-input>
+            </a-form-item>
+            <a-form-item>
+              <a-input
+                v-model={[formState.value.roomName, "value"]}
+                placeholder="科室房间"
+              ></a-input>
+            </a-form-item>
+          </a-form>
+        </a-modal>
         <Loudspeaker />
         <div class="signboard-wrapper">
           <section class="signboard">
