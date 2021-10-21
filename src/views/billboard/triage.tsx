@@ -88,7 +88,11 @@ export default defineComponent({
 
     return () => (
       <>
-        <a-modal v-model={[visible.value, "visible"]} onOk={handleOk}>
+        <a-modal
+          v-model={[visible.value, "visible"]}
+          closable={false}
+          onOk={handleOk}
+        >
           <a-form model={formState.value}>
             <a-form-item>
               <a-input
